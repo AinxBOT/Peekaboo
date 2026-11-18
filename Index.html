@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for you</title>
+    <style>
+        body {
+            background-color: #09090b;
+            color: #e4e4e7;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+        /* Bingkai Gambar di Bagian Atas */
+        .image-container {
+            max-width: 420px;
+            width: 100%;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.12);
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.08) brightness(0.95);
+        }
+        /* Judul Neon Putih Lembut Kelap-Kelip */
+        .neon-title {
+            font-size: 2.3rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            animation: whiteNeonPulse 2.2s ease-in-out infinite alternate, softFlicker 4s infinite;
+        }
+        .subtitle {
+            color: #a1a1aa;
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        /* Kotak Kata-kata di Bawah Gambar */
+        .message-box {
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background-color: rgba(24, 24, 27, 0.85);
+            padding: 26px;
+            max-width: 620px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            text-align: left;
+            line-height: 1.8;
+            font-size: 0.98rem;
+            box-sizing: border-box;
+        }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: #ffffff;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #71717a;
+            text-align: center;
+        }
+        @keyframes whiteNeonPulse {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 12px rgba(255, 255, 255, 0.4);
+                transform: scale(0.98);
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 25px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
+                transform: scale(1.02);
+            }
+        }
+        @keyframes softFlicker {
+            0%, 24%, 26%, 60%, 62%, 100% { opacity: 1; }
+            25%, 61% { opacity: 0.45; }
+        }
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        @media (max-width: 480px) {
+            .neon-title { font-size: 1.9rem; }
+            .message-box { padding: 20px; font-size: 0.92rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pemutar Audio Tersembunyi -->
+    <audio id="bg-music" src="musik.mp3" autoplay loop></audio>
+
+    <div class="image-container">
+        <img src="gambar.jpg" alt="for you">
+    </div>
+
+    <div class="neon-title">for you</div>
+    <div class="subtitle">Untuk kamu yang jauh di sana, tapi selalu dekat di hati &hearts;</div>
+
+    <div class="message-box">
+        <span id="typed-text"></span><span class="cursor"></span>
+    </div>
+
+    <div class="footer">
+        Terima kasih sudah hadir di dalam hidupku
+    </div>
+
+    <script>
+        // Logika agar musik otomatis berputar (dan langsung jalan saat layar disentuh jika diblokir browser)
+        const music = document.getElementById("bg-music");
+        music.volume = 0.6; // Volume diatur 60% agar lembut dan tidak kaget
+
+        function tryPlayMusic() {
+            music.play().then(() => {
+                // Hapus pendeteksi sentuhan setelah musik berhasil berputar
+                document.removeEventListener('click', tryPlayMusic);
+                document.removeEventListener('touchstart', tryPlayMusic);
+                document.removeEventListener('scroll', tryPlayMusic);
+            }).catch(() => {
+                // Menunggu interaksi pertama pengguna jika browser memblokir autoplay
+            });
+        }
+
+        // Mencoba memutar saat halaman dimuat dan saat layar disentuh/digulir
+        window.addEventListener('load', tryPlayMusic);
+        document.addEventListener('click', tryPlayMusic);
+        document.addEventListener('touchstart', tryPlayMusic);
+        document.addEventListener('scroll', tryPlayMusic);
+
+        // Efek mesin tik
+        const message = `Dear kamu, seseorang yang tidak sengaja aku temukan di dalam game di kala aku sedang merasa hampa dan kesepian. Melalui web sederhana ini, aku ingin menyampaikan rasa terima kasihku kepadamu.\n\nTerima kasih telah menyelamatkanku dari kesendirian. Terima kasih telah mengajarkanku arti cinta, dan terima kasih sudah mau mencintai orang sepertiku.\n\nAku mencintaimu dengan tulus. Maafkan aku yang dulu sempat menolak dan menjauhi perasaan itu, serta terima kasih karena telah membuatku berani menerima perasaanku sendiri.\n\nSemoga kita dapat terus bertahan melewati setiap hal yang harus kita lalui. Tidak apa-apa jika suatu saat kamu merasa bosan denganku, atau jika kamu merasa ingin mencari suasana yang baru. Aku akan selalu di sini untuk menyambutmu kembali.\n\nLove youu, buat kamu yang selalu ada di dalam pikiranku. ♥`;
+
+        const speed = 40;
+        let i = 0;
+        const target = document.getElementById("typed-text");
+
+        function typeWriter() {
+            if (i < message.length) {
+                target.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
